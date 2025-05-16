@@ -59,3 +59,16 @@ int main() {
 
     return 0;
 }
+
+
+/*simple input 
+5 4
+1 2
+1 3
+2 4
+3 5
+the output will be like 
+DFS: 1 2 4 3 5 
+BFS: 1 2 3 4 5 
+
+*/
