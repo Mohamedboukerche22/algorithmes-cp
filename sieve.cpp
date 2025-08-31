@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+
 void sieve(int n) {
  vector<bool>check(n+1,true);
  vector<int>num(n+1);
