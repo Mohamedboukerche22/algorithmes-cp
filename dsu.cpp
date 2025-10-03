@@ -1,54 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 1e5 + 5; 
 
-int parent[N];  int rank_[N];  
+#define fastAOI ios::sync_with_stdio(false); cin.tie(nullptr);
+#define ll long long
+#define all(x) (x).begin(), (x).end()
+#define pb push_back
+#define sz(x) (int)(x).size()
 
-void make_set(int n) {
-    for (int i = 1; i <= n; i++) {
-        parent[i] = i;
-        rank_[i] = 0;
+int parent[100005];
+int find(int x){
+    if(parent[x] == x){
+        return x;
     }
+    return parent[x] = find(parent[x]);
 }
-
-int find(int u) {
-    if (u != parent[u])
-        parent[u] = find(parent[u]);
-    return parent[u];
+void unions(int a,int b){
+    a = find(a);
+    b = find(b);
+    if(a != b)parent[b] = a;
 }
-
-void union_sets(int u, int v) {
-    int root_u = find(u);
-    int root_v = find(v);
-    if (root_u != root_v) {
-        // Union by rank
-        if (rank_[root_u] < rank_[root_v]) {
-            parent[root_u] = root_v;
-        } else if (rank_[root_u] > rank_[root_v]) {
-            parent[root_v] = root_u;
-        } else {
-            parent[root_v] = root_u;
-            rank_[root_u]++;
-        }
-    }
-}
-
-
 int main() {
-    int n ; 
-    cin >>n;
-    make_set(n);
-
-  /*  union_sets(1, 2);
-    union_sets(3, 4);
-    union_sets(2, 3);*/
-    
-
-    // Check if 1 and 4 are connected
-    if (find(1) == find(4))
-        cout << "1 and 4 are in the same set\n";
-    else
-        cout << "1 and 4 are in different sets\n";
-
+    fastAOI;
+    int t = 1;
+    // cin >> t;
+    while (t--) {
+       int n,m;
+       cin >> n>>m;
+       for(int i = 1 ; i<n+1;i++){
+        parent[i] = i;
+       }
+       for(int i = 0 ; i< m ;i++){
+        int a,b;
+        cin >>a>>b;
+        unions(a,b);
+       }
+       int count = 0;
+       for(int i = 1;i<=n;i++){
+        if(find(i) == i)count++;
+       }
+       cout<<count;
+    }
     return 0;
 }
